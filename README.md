@@ -3,6 +3,10 @@
 ## Overview
 This Translation App is a Vue.js-based web application that provides real-time speech-to-text translation. It supports multiple languages and offers features like continuous speech recognition, language selection, and a user-friendly interface.
 
+## Domain
+https://speech-to-translator.vercel.app/ <br />
+![Speech To Translator](/public/speech-to-translator.png "Screenshot")
+
 ## Features
 - Real-Time Translation: Translates speech to text in real time.
 - Multiple Language Support: Offers a variety of languages to choose from. (

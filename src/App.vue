@@ -174,6 +174,7 @@ export default defineComponent({
       if (!input || input.length > 5000 || input.length == 0) {
         return;
       }
+
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${toLang.value}&tl=${fromLang.value}&dt=t&q=${encodeURI(
         inputText.value,
       )}`;
