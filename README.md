@@ -20,11 +20,11 @@ To set up the project on your local machine:
 
 1. Clone the repository:
 ```shell
-git clone [repository URL]
+git clone https://github.com/iu7726/speech-to-translator.git
 ```
 2. Navigate to the project directory:
 ```shell
-cd [project-name]
+cd speech-to-translator.git
 ```
 3. Install dependencies:
 ```shell
