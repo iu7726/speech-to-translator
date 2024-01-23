@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onUpdated, reactive, ref } from "vue";
 import { languages } from "../languages";
 
 export default {
@@ -31,7 +30,6 @@ export default {
   },
   watch: {
     selectLang() {
-      console.log(this.selectLang)
       this.$emit('select:lang', this.selectLang)
     }
   }

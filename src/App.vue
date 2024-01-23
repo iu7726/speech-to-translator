@@ -4,7 +4,7 @@
       Notice: Please use Google Chrome on Desktop or Android only. Other
       browsers are not supported.
     </div>
-    <div class="p-4 bg-white">
+    <div class="p-4 bg-grey">
       <div class="container">
         <div class="card input-wrapper">
           <div class="from">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="center">
-          <div class="swap-position">
+          <div class="swap-position" @click="swapLang">
             <ion-icon name="swap-horizontal-outline"></ion-icon>
           </div>
         </div>
@@ -79,6 +79,20 @@
             non stop {{ nonstop }}
           </button>
         </div>
+        <div class="speech-btn">
+          <button class="
+            bg-purple-500
+            hover:bg-purple-700
+            text-white
+            font-bold
+            py-2
+            px-4
+            mt-2
+            rounded
+          " @click="textToSpeech()">
+            translator speech
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +119,7 @@ export default defineComponent({
     const fromLang = ref("en")
     const darkmode = ref(false)
     const sr2 = new webkitSpeechRecognition();
+    const ssu = new SpeechSynthesisUtterance();
     sr2.lang = toLang.value;
     sr2.continuous = true;
     sr2.interimResults = true;
@@ -147,21 +162,9 @@ export default defineComponent({
       sr2.stop();
       listening.value = false;
     };
-    let scrollIsAtBottom = true;
-    window.onscroll = () => {
-      scrollIsAtBottom =
-        window.scrollY >
-        document.documentElement.scrollHeight - window.innerHeight - 16;
-    };
-    onUpdated(() => {
-      if (scrollIsAtBottom) {
-        window.scrollBy(0, 1000);
-      }
-    });
 
     const selectToLang = (value: string) => {
       toLang.value = value;
-      translate()
     }
 
     const selectFromLang = (value: string) => {
@@ -178,7 +181,7 @@ export default defineComponent({
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${toLang.value}&tl=${fromLang.value}&dt=t&q=${encodeURI(
         inputText.value,
       )}`;
-      console.log(url)
+
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
@@ -188,6 +191,21 @@ export default defineComponent({
         .catch((error) => {
           console.log(error);
         });
+    }
+
+    const swapLang = () => {
+      let tmp = toLang.value;
+      toLang.value = fromLang.value;
+      fromLang.value = tmp;
+    }
+
+    const textToSpeech = () => {
+      ssu.lang = fromLang.value
+      ssu.pitch = 1
+      ssu.rate = 1;
+      ssu.text = outputText.value;
+
+      window.speechSynthesis.speak(ssu)
     }
 
     return {
@@ -206,7 +224,9 @@ export default defineComponent({
       inputText,
       outputText,
       translate,
-      darkmode
+      darkmode,
+      swapLang,
+      textToSpeech
     };
   },
 });
